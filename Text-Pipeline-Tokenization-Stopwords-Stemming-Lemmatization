@@ -1,0 +1,102 @@
+#Assignment 1 — NLP PIPELINE
+
+# Step 1:Install required libraries
+
+!pip install nltk scikit-learn pandas numpy
+
+
+#Step 2:IMPORT LIBRARIES
+
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+
+
+#STEP 3 — Enter a Custom Paragraph
+
+paragraph = """
+NLP is an amazing field. It helps computers understand human language.
+We can perform tokenization, remove stopwords, and apply stemming and lemmatization.
+This helps in processing text for Machine Learning.
+"""
+print("Original Paragraph:\n", paragraph)
+
+
+#STEP 4 — Tokenization
+
+Tokenization is the process of splitting a paragraph into individual words or tokens.
+It helps the computer understand text word-by-word.
+
+import nltk
+
+nltk.download('punkt')
+nltk.download('punkt_tab')
+nltk.download('stopwords')
+nltk.download('wordnet')
+
+
+tokens = word_tokenize(paragraph)
+print("\n--- TOKENIZATION RESULT ---\n")
+print(tokens)
+
+
+#STEP 5 — Stopword Removal
+
+Stopwords are very common words like “the, is, am, are, of, in”.
+They don’t add meaning, so we remove them to keep only important words.
+
+stop_words = set(stopwords.words('english'))
+
+filtered_tokens = [word for word in tokens if word.lower() not in stop_words]
+
+print("\n--- AFTER STOPWORD REMOVAL ---\n")
+print(filtered_tokens)
+
+
+#STEP 6 — Stemming
+
+Stemming reduces words to a basic form by cutting the ends.
+Example:
+
+“playing” → “play”
+
+“studies” → “studi”
+
+It is fast but not always perfect.
+
+stemmer = PorterStemmer()
+
+stemmed_words = [stemmer.stem(word) for word in filtered_tokens]
+
+print("\n--- STEMMING RESULT ---\n")
+print(stemmed_words)
+
+
+#STEP 7 — Lemmatization
+
+Lemmatization converts a word to its proper dictionary base form.
+Example:
+
+“better” → “good”
+
+“studies” → “study”
+
+It is more accurate than stemming because it uses vocabulary + grammar rules.
+
+lemmatizer = WordNetLemmatizer()
+
+lemmatized_words = [lemmatizer.lemmatize(word) for word in filtered_tokens]
+
+print("\n--- LEMMATIZATION RESULT ---\n")
+print(lemmatized_words)
